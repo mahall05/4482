@@ -4,20 +4,16 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class TeleopDrive extends CommandBase {
-
+public class Autonomous extends CommandBase {
   private DriveSubsystem driveSubsystem;
-  private Joystick input;
-  
-  /** Creates a new TeleopDrive. */
-  public TeleopDrive(Joystick input, DriveSubsystem subsystem) {
-    driveSubsystem = subsystem;
-    this.input = input;
-    
+
+  /** Creates a new Autonomous. */
+  public Autonomous(DriveSubsystem driveSubsystem) {
+    this.driveSubsystem = driveSubsystem;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveSubsystem);
   }
@@ -29,10 +25,7 @@ public class TeleopDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.drive();
-    if(input.getRawButtonPressed(12)){
-      driveSubsystem.resetEncoder();
-    }
+    driveSubsystem.driveAuto(0, 0.2, 0);
   }
 
   // Called once the command ends or is interrupted.

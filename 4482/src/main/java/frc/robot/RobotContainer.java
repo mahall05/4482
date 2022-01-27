@@ -9,10 +9,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.LauncherCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LauncherSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -29,15 +31,19 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final DriveSubsystem driveSubsystem = new DriveSubsystem(input, 0);
-  private final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem);
+  private final TeleopDrive teleopDrive = new TeleopDrive(input, driveSubsystem);
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final IntakeCommand intakeCommand = new IntakeCommand(input, intakeSubsystem);
+
+  private final LauncherSubsystem launcherSubsystem = new LauncherSubsystem();
+  private final LauncherCommand launcherCommand = new LauncherCommand(input, launcherSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     driveSubsystem.setDefaultCommand(teleopDrive);
     intakeSubsystem.setDefaultCommand(intakeCommand);
+    launcherSubsystem.setDefaultCommand(launcherCommand);
 
     // Configure the button bindings
     configureButtonBindings();

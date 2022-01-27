@@ -4,11 +4,14 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -32,9 +35,22 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("FR Encoder", readEncoder());
   }
 
   public void drive(){
     robotDrive.driveCartesian(input.getX() * enableX, input.getY(), input.getZ() * -0.5);
+  }
+
+  public void driveAuto(double xSpeed, double ySpeed, double zSpeed){
+    robotDrive.driveCartesian(xSpeed, -1 * ySpeed, zSpeed);
+  }
+
+  public double readEncoder(){
+    return FRDrive.getEncoder().getPosition();
+  }
+
+  public void resetEncoder(){
+    FRDrive.getEncoder().setPosition(0);
   }
 }
