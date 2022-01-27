@@ -7,14 +7,17 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.Autonomous;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.LauncherCommand;
+import frc.robot.commands.PneumaticCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
+import frc.robot.subsystems.PneumaticSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -30,12 +33,20 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private final DriveSubsystem driveSubsystem = new DriveSubsystem(input, 0);
-  private final TeleopDrive teleopDrive = new TeleopDrive(input, driveSubsystem);
+  //  PNEUMATICS
+  private final PneumaticSubsystem pneumaticSubsystem = new PneumaticSubsystem();
+  private final PneumaticCommand pneumaticCommand = new PneumaticCommand(input, pneumaticSubsystem);
 
+  //  DRIVE
+  private final DriveSubsystem driveSubsystem = new DriveSubsystem(input, pneumaticSubsystem);
+  private final TeleopDrive teleopDrive = new TeleopDrive(input, driveSubsystem);
+  private final Autonomous autonomous = new Autonomous(driveSubsystem);
+
+  //  INTAKE
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final IntakeCommand intakeCommand = new IntakeCommand(input, intakeSubsystem);
 
+  // LAUNCHER
   private final LauncherSubsystem launcherSubsystem = new LauncherSubsystem();
   private final LauncherCommand launcherCommand = new LauncherCommand(input, launcherSubsystem);
 
@@ -44,6 +55,7 @@ public class RobotContainer {
     driveSubsystem.setDefaultCommand(teleopDrive);
     intakeSubsystem.setDefaultCommand(intakeCommand);
     launcherSubsystem.setDefaultCommand(launcherCommand);
+    pneumaticSubsystem.setDefaultCommand(pneumaticCommand);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -64,6 +76,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return autonomous;
   }
 }
