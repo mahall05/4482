@@ -1,0 +1,28 @@
+Joystick Buttons:
+Trigger: 
+Top of Stick:
+Base:
+
+
+
+Motor Ports:
+FRDrive: 
+FLDrive: 
+BRDrive: 
+BLDrive: 
+
+Intake: 
+Index: 
+FLauncher: 
+BLauncher: 
+
+Winch: 
+
+Compressor & Solenoids:
+Compressor: 
+
+sol: 
+sol: 
+sol: 
+sol: 
+butterflyDrive: 
