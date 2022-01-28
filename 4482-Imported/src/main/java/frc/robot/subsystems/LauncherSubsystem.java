@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LauncherSubsystem extends SubsystemBase {
   private final CANSparkMax FLauncher = new CANSparkMax(7, MotorType.kBrushless);
-  private final CANSparkMax BLauncher = new CANSparkMax(8, MotorType.kBrushless);
+  private final CANSparkMax BLauncher = new CANSparkMax(6, MotorType.kBrushless);
 
   /** Creates a new LauncherSubsystem. */
   public LauncherSubsystem() {}
@@ -23,7 +23,7 @@ public class LauncherSubsystem extends SubsystemBase {
 
   public void launch(){
     FLauncher.set(1);
-    BLauncher.set(1);
+    BLauncher.set(-1);
   }
 
   public void stop(){

@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,13 +22,19 @@ public class DriveSubsystem extends SubsystemBase {
   private final MecanumDrive robotDrive = new MecanumDrive(FLDrive, BLDrive, FRDrive, BRDrive);
 
   private Joystick input = null;
+  PneumaticSubsystem ps;
 
   private int enableX = 0;
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem(Joystick input, PneumaticSubsystem ps) {
     this.input = input;
-    enableX = ps.getEnableX();
+    this.ps = ps;
+
+    FRDrive.setIdleMode(IdleMode.kBrake);
+    FLDrive.setIdleMode(IdleMode.kBrake);
+    BRDrive.setIdleMode(IdleMode.kBrake);
+    BLDrive.setIdleMode(IdleMode.kBrake);
   }
 
   @Override
@@ -38,7 +44,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void drive(){
-    robotDrive.driveCartesian(input.getX() * enableX, input.getY(), input.getZ() * -0.5);
+    robotDrive.driveCartesian(input.getX() * ps.getEnableX(), input.getY(), input.getZ() * -0.5);
   }
 
   public void driveAuto(double xSpeed, double ySpeed, double zSpeed){

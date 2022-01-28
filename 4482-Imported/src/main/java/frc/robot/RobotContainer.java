@@ -40,7 +40,7 @@ public class RobotContainer {
   //  DRIVE
   private final DriveSubsystem driveSubsystem = new DriveSubsystem(input, pneumaticSubsystem);
   private final TeleopDrive teleopDrive = new TeleopDrive(input, driveSubsystem);
-  private final Autonomous autonomous = new Autonomous(driveSubsystem);
+  private final Autonomous autonomous = new Autonomous(driveSubsystem, 10);
 
   //  INTAKE
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
@@ -52,13 +52,13 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    // Configure the button bindings
+    configureButtonBindings();
+
     driveSubsystem.setDefaultCommand(teleopDrive);
     intakeSubsystem.setDefaultCommand(intakeCommand);
     launcherSubsystem.setDefaultCommand(launcherCommand);
     pneumaticSubsystem.setDefaultCommand(pneumaticCommand);
-
-    // Configure the button bindings
-    configureButtonBindings();
   }
 
   /**

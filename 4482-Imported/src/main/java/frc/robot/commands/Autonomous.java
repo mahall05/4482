@@ -10,9 +10,12 @@ import frc.robot.subsystems.DriveSubsystem;
 public class Autonomous extends CommandBase {
   private DriveSubsystem driveSubsystem;
 
+  private double distance;
+
   /** Creates a new Autonomous. */
-  public Autonomous(DriveSubsystem driveSubsystem) {
+  public Autonomous(DriveSubsystem driveSubsystem, double distance) {
     this.driveSubsystem = driveSubsystem;
+    this.distance = distance;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveSubsystem);
@@ -35,6 +38,11 @@ public class Autonomous extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(driveSubsystem.readEncoder() < distance){
+      return false;
+    }
+    else{
+      return true;
+    }
   }
 }

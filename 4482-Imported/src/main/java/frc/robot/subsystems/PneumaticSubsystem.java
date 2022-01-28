@@ -5,18 +5,17 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PneumaticSubsystem extends SubsystemBase {
-  //private final Compressor c = new Compressor(20);
+  private final Compressor c = new Compressor(20);
 
-  private final Solenoid butterflyDrive = new Solenoid(4, null, 20);
-  //private final Solenoid butterflyDrive = new Solenoid(4, 20);
-  //private final Solenoid butterflyDrive = new Solenoid(4, 20);
-  //private final Solenoid butterflyDrive = new Solenoid(4, 20);
-  //private final Solenoid butterflyDrive = new Solenoid(4, 20);
+  private final Solenoid controlPanelSol = new Solenoid(20, 0);
+  private final Solenoid sol4 = new Solenoid(20, 4);
+  private final Solenoid butterflyDrive = new Solenoid(20, 5);
+  private final Solenoid raiseClimb = new Solenoid(20, 6);
+  private final Solenoid climb = new Solenoid(20, 7);
 
   private boolean mecanumEnabled = false;
 
@@ -24,7 +23,13 @@ public class PneumaticSubsystem extends SubsystemBase {
 
   /** Creates a new PneumaticSubsystem. */
   public PneumaticSubsystem() {
+    c.setClosedLoopControl(true);
+    
+    controlPanelSol.set(false);
+    sol4.set(false);
     butterflyDrive.set(false);
+    raiseClimb.set(false);
+    climb.set(false);
   }
 
   @Override
@@ -43,12 +48,12 @@ public class PneumaticSubsystem extends SubsystemBase {
     }
   }
 
-  public void liftArms(){
-
+  public void raiseClimb(){
+    raiseClimb.set(!raiseClimb.get());
   }
 
-  public void extendArms(){
-    
+  public void extendClimb(){
+    climb.set(!climb.get());
   }
 
   public int getEnableX(){

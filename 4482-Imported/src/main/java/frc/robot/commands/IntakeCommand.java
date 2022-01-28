@@ -14,9 +14,10 @@ public class IntakeCommand extends CommandBase {
 
   /** Creates a new IntakeCommand. */
   public IntakeCommand(Joystick input, IntakeSubsystem intakeSubsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.input = input;
     this.intakeSubsystem = intakeSubsystem;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -26,10 +27,10 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(input.getRawButton(6)){
+    if(input.getRawButton(5)){
       intakeSubsystem.intake();
     }
-    else if(input.getRawButton(5)){
+    else if(input.getRawButton(3)){
       intakeSubsystem.eject();
     }
     else{

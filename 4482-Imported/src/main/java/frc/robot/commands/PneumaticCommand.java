@@ -29,14 +29,14 @@ public class PneumaticCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(input.getRawButtonPressed(11)){
+    if(input.getRawButtonPressed(7)){
       pneumatics.activateMecanum();
     }
-    if(input.getRawButtonPressed(7)){
-      pneumatics.liftArms();
+    if(input.getRawButtonPressed(6)){
+      pneumatics.raiseClimb();
     }
-    if(input.getRawButtonPressed(8)){
-      pneumatics.extendArms();
+    if(input.getRawButtonPressed(4)){
+      pneumatics.extendClimb();
     }
   }
 
