@@ -1,8 +1,8 @@
 4482
 
 
-Check buttons for launcher and intake
-Check motors for intake, index, and launchers
-Change solenoid numbers to match
+On WPILib 2022, compressor and sols need a module type (unsure what type?)
+On WPILib 2021, compressor and sols need the module type removed
 
-Fix compressor declaration
+2021, c.setClosedLoopControl(true);
+2022, c.enableDigital()???

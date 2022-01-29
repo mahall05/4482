@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeCommand extends CommandBase {
@@ -27,10 +28,10 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(input.getRawButton(5)){
+    if(input.getRawButton(Constants.Buttons.intake)){
       intakeSubsystem.intake();
     }
-    else if(input.getRawButton(3)){
+    else if(input.getRawButton(Constants.Buttons.eject)){
       intakeSubsystem.eject();
     }
     else{

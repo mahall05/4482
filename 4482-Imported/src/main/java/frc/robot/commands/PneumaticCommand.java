@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.PneumaticSubsystem;
 
 public class PneumaticCommand extends CommandBase {
@@ -29,13 +30,13 @@ public class PneumaticCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(input.getRawButtonPressed(7)){
+    if(input.getRawButtonPressed(Constants.Buttons.mecanumToggle)){
       pneumatics.activateMecanum();
     }
-    if(input.getRawButtonPressed(6)){
+    if(input.getRawButtonPressed(Constants.Buttons.raiseClimb)){
       pneumatics.raiseClimb();
     }
-    if(input.getRawButtonPressed(4)){
+    if(input.getRawButtonPressed(Constants.Buttons.extendClimb)){
       pneumatics.extendClimb();
     }
   }

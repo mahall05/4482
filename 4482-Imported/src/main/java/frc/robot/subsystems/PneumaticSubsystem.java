@@ -5,17 +5,18 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PneumaticSubsystem extends SubsystemBase {
-  private final Compressor c = new Compressor(20);
+  private final Compressor c = new Compressor(20, PneumaticsModuleType.CTREPCM);
 
-  private final Solenoid controlPanelSol = new Solenoid(20, 0);
-  private final Solenoid sol4 = new Solenoid(20, 4);
-  private final Solenoid butterflyDrive = new Solenoid(20, 5);
-  private final Solenoid raiseClimb = new Solenoid(20, 6);
-  private final Solenoid climb = new Solenoid(20, 7);
+  private final Solenoid controlPanelSol = new Solenoid(20, PneumaticsModuleType.CTREPCM, 0);
+  private final Solenoid sol4 = new Solenoid(20, PneumaticsModuleType.CTREPCM, 4);
+  private final Solenoid butterflyDrive = new Solenoid(20, PneumaticsModuleType.CTREPCM, 5);
+  private final Solenoid raiseClimb = new Solenoid(20, PneumaticsModuleType.CTREPCM, 6);
+  private final Solenoid climb = new Solenoid(20, PneumaticsModuleType.CTREPCM, 7);
 
   private boolean mecanumEnabled = false;
 
@@ -23,7 +24,8 @@ public class PneumaticSubsystem extends SubsystemBase {
 
   /** Creates a new PneumaticSubsystem. */
   public PneumaticSubsystem() {
-    c.setClosedLoopControl(true);
+    //c.setClosedLoopControl(true);
+    c.enableDigital();
     
     controlPanelSol.set(false);
     sol4.set(false);
