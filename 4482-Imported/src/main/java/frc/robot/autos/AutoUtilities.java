@@ -11,4 +11,14 @@ public class AutoUtilities {
         ticks = (1.0485*inches);
         return ticks;
     }
+
+    public double getProportionalSpeed(double distance, double position){
+        double proportionalSpeed = 1 - position / distance;
+        if(proportionalSpeed < 0.1){
+            return 0.1; // Don't want the robot to be going slower than this
+        }
+        else{
+            return proportionalSpeed;
+        }
+    }
 }

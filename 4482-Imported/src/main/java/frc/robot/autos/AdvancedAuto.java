@@ -29,9 +29,18 @@ public class AdvancedAuto extends CommandBase {
 
   // {forwardSpeed, strafe, rotation, distance}
   public double[][] path = {
-    {0.2, 0, 0, 10},
-    {0.2, 0, 90, 0},
-    {0.2, 0, 0, 10}
+    {0.2, 0, 0, 10}, // 1
+    {0.2, 0, 90, 0}, // 2
+    {0.2, 0, 0, 10}, // 3
+    {0.2, 0, 180, 0}, // 4
+    {0.2, 0, 0, 10}, // 5
+  };
+
+  // {intake, launch, mecanumWheels, raiseClimb, extendClimb}
+  public boolean[][] pathActions = {
+    {true, false, false, false, false}, // 1
+    {false, false, false, false, false}, // 2
+    {false, true, false, false, false}, // 3
   };
 
   /** Creates a new AdvancedAuto. */
@@ -58,7 +67,7 @@ public class AdvancedAuto extends CommandBase {
   @Override
   public void execute() {
     if(step < path.length){
-      runStep(path[step]);
+      runStep(path[step], pathActions[step]);
     }
     else{
       finished = true;
@@ -66,12 +75,12 @@ public class AdvancedAuto extends CommandBase {
   }
 
   // TODO ###################  TEST TO SEE WHAT GYRO AXIS NEEDS TO BE USED
-  public void runStep(double[] values){
+  public void runStep(double[] values, boolean[] actions){
     if(values[3] == 0){     // If the robot isn't supposed to move forward/backward, then it is supposed to rotate
       if(gyro.getYaw() > values[2] + gyroRange || gyro.getYaw() < values[2] - gyroRange){
         double difference = values[2] - gyro.getYaw();
         double rotDirection = difference / Math.abs(difference); // This will return either 1 or -1 to determine which way the robot needs to turn
-        ds.driveAuto(0, 0, values[0] * rotDirection);
+        ds.driveAuto(0, 0, 0.2 * rotDirection);
       }
       else{
         tempTicks = ds.getPosition();
@@ -80,7 +89,7 @@ public class AdvancedAuto extends CommandBase {
     }
     else{
       if(tempTicks - ds.getPosition() < util.inchesToTicks(values[3])){
-        ds.driveAuto(0, values[0], 0);
+        ds.driveAuto(0, util.getProportionalSpeed(values[3], tempTicks - ds.getPosition()), 0);
       }
       else{
         tempTicks = ds.getPosition();
